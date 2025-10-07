@@ -26,8 +26,9 @@ function HomePage() {
       
       {/* Imagem secundária sobreposta */}
       <img 
-        className="w-[1100px] h-[400px] absolute left-[170px] top-[190px] object-cover "
+        className="w-[1100px] h-[400px] absolute left-1/2 top-1/2 object-cover -translate-x-1/2"
         src={mcgorila}
+        alt="MC Gorila"
       />
       
       {/* Botão Resgatar Ingresso */}
