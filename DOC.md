@@ -103,10 +103,7 @@ Abra um terminal no VS Code, navegue até `evento-backend` e execute:
 ```bash
 cd evento-backend
 source venv/bin/activate  # No Windows: .\venv\Scripts\activate
-# Localmente
 flask run # $env:FLASK_APP = "src/main.py"; flask run
-# Servidor Local
-flask run --host=0.0.0.0 --port=5000
 ```
 
 O backend estará disponível em `http://localhost:5000`.

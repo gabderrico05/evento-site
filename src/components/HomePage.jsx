@@ -9,7 +9,7 @@ function HomePage() {
   const navigate = useNavigate()
 
   const handleResgatarIngresso = () => {
-    navigate('/formulario')
+    navigate('/login')
   }
 
   return (
@@ -26,13 +26,13 @@ function HomePage() {
       
       {/* Imagem secundária sobreposta */}
       <img 
-        className="w-[1100px] h-[400px] absolute left-1/2 top-1/2 object-cover -translate-x-1/2"
+        className="w-[1100px] h-[400px] absolute left-1/2 bottom-1/4  object-cover -translate-x-1/2"
         src={mcgorila}
         alt="MC Gorila"
       />
       
       {/* Botão Resgatar Ingresso */}
-      <div className=" flex h-full items-end justify-center pb-20">
+      <div className=" flex h-full items-end justify-center pb-16">
         <Button
           onClick={handleResgatarIngresso}
           className="px-7 pt-3 pb-4 bg-white text-[#73276C] border-2 border-[#73276C] rounded-[5px] hover:bg-[#73276C] hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"

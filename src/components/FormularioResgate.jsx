@@ -13,7 +13,7 @@ function FormularioResgate() {
     email: '',
     cpf: '',
     telefone: '',
-    codigoEvento: ''
+    senha: ''
   })
   const [errors, setErrors] = useState({})
   const [isLoading, setIsLoading] = useState(false)
@@ -127,10 +127,10 @@ function FormularioResgate() {
       newErrors.telefone = 'Telefone inválido'
     }
     
-    if (!formData.codigoEvento.trim()) {
-      newErrors.codigoEvento = 'Código do evento é obrigatório'
-    } else if (formData.codigoEvento.trim().length < 6) {
-      newErrors.codigoEvento = 'Código deve ter pelo menos 6 caracteres'
+    if (!formData.senha.trim()) {
+      newErrors.senha = 'Senha é obrigatória'
+    } else if (formData.senha.trim().length < 4) {
+      newErrors.senha = 'Senha deve ter pelo menos 4 caracteres'
     }
     
     setErrors(newErrors)
@@ -157,18 +157,18 @@ function FormularioResgate() {
           email: formData.email.trim(),
           cpf: formData.cpf.replace(/\D/g, ''),
           telefone: formData.telefone.replace(/\D/g, ''),
-          codigoEvento: formData.codigoEvento.trim()
+          senha: formData.senha.trim()
         })
       })
       
       if (response.ok) {
         const result = await response.json()
-        // Armazenar dados do ingresso no localStorage para a próxima página
-        localStorage.setItem('ingressoData', JSON.stringify(result))
+        // Salvar participante em sessão local e redirecionar para ingresso
+        localStorage.setItem('participante', JSON.stringify(result))
         navigate('/ingresso')
       } else {
         const error = await response.json()
-        setErrors({ submit: error.message || 'Erro ao resgatar ingresso' })
+        setErrors({ submit: error.error || error.message || 'Erro ao resgatar ingresso' })
       }
     } catch (error) {
       setErrors({ submit: 'Erro de conexão. Tente novamente.' })
@@ -195,9 +195,10 @@ function FormularioResgate() {
         
         {/* Formulário */}
         <div className="max-w-md mx-auto bg-white rounded-lg shadow-2xl p-8">
-          <h1 className="text-2xl font-bold text-[#73276C] text-center mb-6">
-            Resgatar Ingresso
+          <h1 className="text-2xl font-bold text-[#73276C] text-center mb-2">
+            Cadastro
           </h1>
+          <p className="text-center text-sm text-gray-600 mb-4">Crie sua conta para resgatar seu ingresso</p>
           
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -271,19 +272,19 @@ function FormularioResgate() {
             </div>
             
             <div>
-              <Label htmlFor="codigoEvento" className="text-[#73276C] font-medium">
-                Código do Evento *
+              <Label htmlFor="senha" className="text-[#73276C] font-medium">
+                Senha *
               </Label>
               <Input
-                id="codigoEvento"
-                type="text"
-                value={formData.codigoEvento}
-                onChange={(e) => handleInputChange('codigoEvento', e.target.value.toUpperCase())}
-                className={`mt-1 ${errors.codigoEvento ? 'border-red-500' : 'border-gray-300'}`}
-                placeholder="Digite o código do evento"
+                id="senha"
+                type="password"
+                value={formData.senha}
+                onChange={(e) => handleInputChange('senha', e.target.value)}
+                className={`mt-1 ${errors.senha ? 'border-red-500' : 'border-gray-300'}`}
+                placeholder="Crie uma senha"
               />
-              {errors.codigoEvento && (
-                <p className="text-red-500 text-sm mt-1">{errors.codigoEvento}</p>
+              {errors.senha && (
+                <p className="text-red-500 text-sm mt-1">{errors.senha}</p>
               )}
             </div>
             
@@ -298,8 +299,10 @@ function FormularioResgate() {
               disabled={isLoading}
               className="w-full bg-[#73276C] hover:bg-[#5a1e55] text-white py-3 text-lg font-semibold transition-all duration-300"
             >
-              {isLoading ? 'Processando...' : 'Resgatar Ingresso'}
+              {isLoading ? 'Processando...' : 'Cadastrar e Resgatar'}
             </Button>
+
+            <p className="text-center text-sm text-gray-600">Já possui conta? <button type="button" onClick={() => navigate('/login')} className="text-[#73276C] font-medium hover:underline">Entrar</button></p>
           </form>
         </div>
       </div>

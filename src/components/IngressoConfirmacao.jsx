@@ -6,26 +6,23 @@ import '../App.css'
 
 function IngressoConfirmacao() {
   const navigate = useNavigate()
-  const [ingressoData, setIngressoData] = useState(null)
+  const [participante, setParticipante] = useState(null)
 
   useEffect(() => {
-    const data = localStorage.getItem('ingressoData')
-    if (data) {
-      setIngressoData(JSON.parse(data))
+    const stored = localStorage.getItem('participante')
+    if (stored) {
+      setParticipante(JSON.parse(stored))
     } else {
-      // Se não há dados, redirecionar para a página inicial
-      navigate('/')
+      navigate('/login')
     }
   }, [navigate])
 
   const handleConfirmar = () => {
-    // Limpar dados do localStorage
-    localStorage.removeItem('ingressoData')
-    // Voltar para a página inicial
+    localStorage.removeItem('participante')
     navigate('/')
   }
 
-  if (!ingressoData) {
+  if (!participante) {
     return (
       <div className="min-h-screen flex items-center justify-center"
            style={{
@@ -65,7 +62,7 @@ function IngressoConfirmacao() {
               <div className="text-right">
                 <div className="bg-white/20 rounded-lg p-3">
                   <Hash className="h-6 w-6 mb-1" />
-                  <div className="text-sm font-mono">{ingressoData.numeroIngresso}</div>
+                  <div className="text-sm font-mono">{participante.numeroIngresso}</div>
                 </div>
               </div>
             </div>
@@ -107,28 +104,28 @@ function IngressoConfirmacao() {
                 <User className="h-5 w-5 text-[#73276C]" />
                 <div>
                   <div className="font-medium">Nome</div>
-                  <div className="text-gray-600">{ingressoData.nome}</div>
+                  <div className="text-gray-600">{participante.nome}</div>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-[#73276C]" />
                 <div>
                   <div className="font-medium">Email</div>
-                  <div className="text-gray-600">{ingressoData.email}</div>
+                  <div className="text-gray-600">{participante.email}</div>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-[#73276C]" />
                 <div>
                   <div className="font-medium">Telefone</div>
-                  <div className="text-gray-600">{ingressoData.telefone}</div>
+                  <div className="text-gray-600">{participante.telefone}</div>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
                 <Hash className="h-5 w-5 text-[#73276C]" />
                 <div>
                   <div className="font-medium">CPF</div>
-                  <div className="text-gray-600">{ingressoData.cpfFormatado}</div>
+                  <div className="text-gray-600">{participante.cpfFormatado}</div>
                 </div>
               </div>
             </div>
@@ -159,9 +156,7 @@ function IngressoConfirmacao() {
 
           {/* Rodapé do Ingresso */}
           <div className="bg-gray-50 p-4 text-center">
-            <p className="text-xs text-gray-500">
-              Ingresso válido apenas para a data especificada • Código: {ingressoData.codigoEvento}
-            </p>
+            <p className="text-xs text-gray-500">Ingresso válido apenas para a data especificada</p>
           </div>
         </div>
 
@@ -171,7 +166,7 @@ function IngressoConfirmacao() {
             onClick={handleConfirmar}
             className="bg-white text-[#73276C] hover:bg-gray-100 px-8 py-3 text-lg font-semibold border-2 border-white transition-all duration-300 shadow-lg hover:shadow-xl"
           >
-            Confirmar e Voltar ao Início
+            Sair
           </Button>
         </div>
       </div>
