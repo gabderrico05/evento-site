@@ -3,11 +3,13 @@ import { Button } from '@/components/ui/button.jsx'
 import { Input } from '@/components/ui/input.jsx'
 import { Label } from '@/components/ui/label.jsx'
 import { useNavigate } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, LogOut } from 'lucide-react'
+import { useAuth } from '../hooks/useAuth.jsx'
 import '../App.css'
 
 function FormularioResgate() {
   const navigate = useNavigate()
+  const { logout, user } = useAuth()
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
@@ -183,15 +185,36 @@ function FormularioResgate() {
            background: 'linear-gradient(189deg, #73276C 0%, #C44FB8 100%)'
          }}>
       <div className="container mx-auto px-4 py-8">
-        {/* Botão Voltar */}
-        <Button
-          onClick={() => navigate('/')}
-          variant="ghost"
-          className="mb-6 text-white hover:bg-white/20"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Voltar
-        </Button>
+        {/* Header com botões Voltar e Logout */}
+        <div className="flex justify-between items-center mb-6">
+          <Button
+            onClick={() => navigate('/')}
+            variant="ghost"
+            className="text-white hover:bg-white/20"
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Voltar
+          </Button>
+          
+          <div className="flex items-center gap-4">
+            {user && (
+              <span className="text-white">
+                Olá, {user.username}!
+              </span>
+            )}
+            <Button
+              onClick={() => {
+                logout()
+                navigate('/')
+              }}
+              variant="ghost"
+              className="text-white hover:bg-white/20"
+            >
+              <LogOut className="mr-2 h-4 w-4" />
+              Sair
+            </Button>
+          </div>
+        </div>
         
         {/* Formulário */}
         <div className="max-w-md mx-auto bg-white rounded-lg shadow-2xl p-8">

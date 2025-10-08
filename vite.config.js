@@ -11,4 +11,13 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000', // Assumindo que seu backend Flask roda na porta 5000
+        changeOrigin: true,
+        secure: false,
+      }
+    }
+  }
 })

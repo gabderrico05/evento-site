@@ -9,7 +9,7 @@ function HomePage() {
   const navigate = useNavigate()
 
   const handleResgatarIngresso = () => {
-    navigate('/formulario')
+    navigate('/login')
   }
 
   return (
@@ -26,7 +26,7 @@ function HomePage() {
       
       {/* Imagem secundária sobreposta */}
       <img 
-        className="w-[1100px] h-[400px] absolute left-1/2 top-1/2 object-cover -translate-x-1/2"
+        className="w-[1100px] h-[400px] absolute left-1/2 bottom-1/3 object-cover -translate-x-1/2"
         src={mcgorila}
         alt="MC Gorila"
       />
